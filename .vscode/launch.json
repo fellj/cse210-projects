@@ -197,6 +197,7 @@
             "name": "Developer - Unit01 (Tic Tac Toe)",
             "type": "coreclr",
             "request": "launch",
+            "requireExactSource": false,
             "preLaunchTask": "build-developer-unit01",
             "program": "${workspaceFolder}/developer/Unit01/bin/Debug/net6.0/Unit01.dll",
             "args": [],
