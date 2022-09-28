@@ -19,6 +19,7 @@ namespace Unit02.Game
         /// </summary>
         public Die()
         {
+            Die die = new Die();
         }
 
         /// <summary>
