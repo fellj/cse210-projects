@@ -16,7 +16,7 @@ namespace Unit02.Game
     {
         public int _value = 0;
         public int _points = 0;
-    }
+    
 
 
     // 2) Create the class constructor. Use the following method comment.
@@ -24,13 +24,10 @@ namespace Unit02.Game
         /// <summary>
         /// Constructs a new instance of Die. Invoked by a special method (called constructor) which is the name of the class followd by ().
         /// </summary>
-        public Die();
+        public Die()
         {
 
         }
-        
-
-    
     // 3) Create the Roll() method. Use the following method comment.
         
         /// <summary>
@@ -44,6 +41,16 @@ namespace Unit02.Game
             Random rnd = new Random();
             //returns a positive int within default range
             _value = Random.Next(1, 7);
+
+            if (_value ==1)
+            {
+                _points = 50;
+            }
+            else if (_value == 5)
+            {
+                _points = 100;
+            }
+            else _points = 0;
         }
-        
+    }
 }
