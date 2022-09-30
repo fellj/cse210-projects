@@ -14,10 +14,29 @@ namespace Unit02.Game
     /// </summary> 
     public class Die
     {
-        public int _value = 0;
-        public int _points = 0;
+        public int _value;
+        public int _points;
     
+    #region Properties
 
+    public int Points { 
+        
+        get {return _points; } 
+        
+        set {_points = value; } 
+        
+    }
+
+    public int Value {
+
+        get { return _value; }
+
+        set {_value = value; }
+
+
+    }
+
+    #endregion
 
     // 2) Create the class constructor. Use the following method comment.
 
@@ -26,6 +45,10 @@ namespace Unit02.Game
         /// </summary>
         public Die()
         {
+
+            _value = 0;
+
+            _points = 0;
 
         }
     // 3) Create the Roll() method. Use the following method comment.
@@ -37,10 +60,11 @@ namespace Unit02.Game
 
         public void Roll()
         {
-            //new random number
+            // new random number
             Random rnd = new Random();
-            //returns a positive int within default range
-            _value = Random.Next(1, 7);
+            
+            // returns a positive int within default range
+            _value = rnd.Next(1, 7);
 
             if (_value ==1)
             {
