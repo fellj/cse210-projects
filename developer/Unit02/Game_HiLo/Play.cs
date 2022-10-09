@@ -12,8 +12,8 @@ namespace Unit02.Game_HiLo
     {
        
         bool _isPlaying = true;
-        int _score = 300;
-        int _totalScore = 0;
+        int _score = 0;
+        int _totalScore = 300;
 
         Card first_card;
         Card next_card;
@@ -47,6 +47,7 @@ namespace Unit02.Game_HiLo
                 DoOutputs();
                 GetInputs();
             }
+            Console.WriteLine("Game Over.  Thank you for playing!");
         }
         /// <summary>
         /// Asks the user if they think the next card will be higher or lower.
@@ -63,12 +64,13 @@ namespace Unit02.Game_HiLo
         /// </summary>
         public void GetInputs()
         {
-            Console.Write("Play again? [y/n] ");
-            string playAgain = Console.ReadLine();
-            _isPlaying = (playAgain == "y");
-            
             if (_isPlaying == true)
             {
+                Console.Write("Play again? [y/n] ");
+                string playAgain = Console.ReadLine();
+                _isPlaying = (playAgain == "y");
+
+                //create new cards
                 first_card = new Card();
                 next_card = new Card();
             }
@@ -116,7 +118,8 @@ namespace Unit02.Game_HiLo
 
             Console.WriteLine($"Next card was: {next_card._value}");
             Console.WriteLine($"Your score is: {_totalScore}\n");
-            _isPlaying = (_score > 0); 
+            _isPlaying = (_totalScore > 0); 
+           
         }
     }
 }
