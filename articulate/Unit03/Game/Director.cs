@@ -57,7 +57,7 @@ namespace Unit03.Game
         private void DoOutputs()
         {
             string hint = _hider.GetHint();
-            _terminalService.WriteText(hint);
+            _terminalService.WriteText(hint); //changed _terminalService.WriteText(hint) to _terminalService.ReadText(hint)
             if (_hider.IsFound())
             {
                 _isPlaying = false;
