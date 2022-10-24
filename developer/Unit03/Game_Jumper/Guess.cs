@@ -31,24 +31,28 @@ namespace Unit03.Game_Jumper
         public bool EvaluateLetters(string theLetter)
         {
             bool result = false;
+            char inputLetter = Char.Parse(theLetter);
             
 
                 foreach (char letter in _secretWord)
                 {
-                    if (Char.Parse(theLetter) == letter)
+                    if (inputLetter == Char.ToLower(letter) || inputLetter == Char.ToUpper(letter))
                     {
                         // Assigns the letter to the correct spot
-                        _correctGuesses[_secretWord.IndexOf(theLetter)] = theLetter; 
-                        totalCorrectGuesses += 1;
-                        result = true;
+                        if (_correctGuesses[_secretWord.IndexOf(letter)] != letter.ToString())
+                        {
+                            _correctGuesses[_secretWord.IndexOf(letter)] = letter.ToString();
+                            totalCorrectGuesses += 1;
+                            result = true;
+                        }
+
                     }
-                    else
-                    {
-                        //_correctGuesses[totalGuesses] = _underscore; 
-                        totalIncorrectGuesses += 1;
-                    }
-                    totalGuesses += 1;
                 }
+
+                // If result is false, then increment totalIncorrectGuesses
+                if (!result) totalIncorrectGuesses++;
+
+                totalGuesses += 1;
                 return result;
 
         }

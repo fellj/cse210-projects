@@ -63,8 +63,6 @@ namespace Unit03.Game_Jumper
         public void DisplayBoard(List<string> _rightGuesses)
         {
             DisplaySecretWord(_rightGuesses);
-
-            Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine($"  {_parachute[0]}");
             Console.WriteLine($" {_parachute[1]}");
