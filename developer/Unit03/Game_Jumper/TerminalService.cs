@@ -62,7 +62,7 @@ namespace Unit03.Game_Jumper
 
         public void DisplayBoard(List<string> _rightGuesses)
         {
-            Console.WriteLine(_rightGuesses);
+            DisplaySecretWord(_rightGuesses);
 
             Console.WriteLine("");
             Console.WriteLine("");
@@ -79,6 +79,12 @@ namespace Unit03.Game_Jumper
         }
 
 
+        public void DisplaySecretWord(List<string> _secretWordItems){
+
+        string secretWordString = String.Join(" ", _secretWordItems.ToArray());
+        Console.WriteLine(secretWordString);
+
+        }
         public void RemovePart(int incorrectGuessNumber)
         {
             if (incorrectGuessNumber < 5)

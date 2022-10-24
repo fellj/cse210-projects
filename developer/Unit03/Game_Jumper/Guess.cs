@@ -44,7 +44,7 @@ namespace Unit03.Game_Jumper
                     }
                     else
                     {
-                        _correctGuesses[totalGuesses] = _underscore; 
+                        //_correctGuesses[totalGuesses] = _underscore; 
                         totalIncorrectGuesses += 1;
                     }
                     totalGuesses += 1;
