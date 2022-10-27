@@ -32,21 +32,28 @@ namespace Unit03.Game_Jumper
         {
             bool result = false;
             char inputLetter = Char.Parse(theLetter);
+            int letterIndex = 0;
             
 
                 foreach (char letter in _secretWord)
                 {
+
                     if (inputLetter == Char.ToLower(letter) || inputLetter == Char.ToUpper(letter))
                     {
                         // Assigns the letter to the correct spot
-                        if (_correctGuesses[_secretWord.IndexOf(letter)] != letter.ToString())
+                        
+                        if (_correctGuesses[letterIndex] == _underscore)
                         {
-                            _correctGuesses[_secretWord.IndexOf(letter)] = letter.ToString();
+                            _correctGuesses[letterIndex] = letter.ToString();
                             totalCorrectGuesses += 1;
                             result = true;
                         }
 
                     }
+
+                    // Increment the letter index
+                    letterIndex++;
+
                 }
 
                 // If result is false, then increment totalIncorrectGuesses
@@ -63,6 +70,7 @@ namespace Unit03.Game_Jumper
                 _correctGuesses[i] = _underscore;
             }
         }
+
 
     }
 
