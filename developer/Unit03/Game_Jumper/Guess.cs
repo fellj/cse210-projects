@@ -20,6 +20,7 @@ namespace Unit03.Game_Jumper
         public int totalGuesses = 0;
         public int totalIncorrectGuesses = 0;
         public int totalCorrectGuesses = 0;
+        
 
         public Guess(string theWord)
         {
@@ -31,24 +32,31 @@ namespace Unit03.Game_Jumper
         public bool EvaluateLetters(string theLetter)
         {
             bool result = false;
+            char inputLetter = Char.Parse(theLetter);
+            int letterIndex = 0;
             
 
                 foreach (char letter in _secretWord)
                 {
-                    if (Char.Parse(theLetter) == letter)
+                    if (inputLetter == Char.ToLower(letter) || inputLetter == Char.ToUpper(letter))
                     {
                         // Assigns the letter to the correct spot
-                        _correctGuesses[_secretWord.IndexOf(theLetter)] = theLetter; 
-                        totalCorrectGuesses += 1;
-                        result = true;
+                        if (_correctGuesses[letterIndex] == _underscore)
+                        {
+                        
+                            _correctGuesses[letterIndex] = letter.ToString(); 
+                            totalCorrectGuesses += 1;
+                            result = true;
+                        }
+                    
                     }
-                    else
-                    {
-                        _correctGuesses[totalGuesses] = _underscore; 
-                        totalIncorrectGuesses += 1;
-                    }
-                    totalGuesses += 1;
+                    letterIndex ++;
                 }
+                //If result is false then increment totalIncorrectGuesses
+                if (! result) totalIncorrectGuesses += 1;
+
+                totalGuesses += 1;
+
                 return result;
 
         }
