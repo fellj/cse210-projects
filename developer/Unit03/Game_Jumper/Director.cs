@@ -13,6 +13,7 @@ namespace Unit03.Game_Jumper
         private bool _isPlaying = true;
         private Guess _guess;
         private TerminalService _terminalService;
+      
         private bool _isCorrect;
         
 
