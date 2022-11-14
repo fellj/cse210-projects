@@ -17,6 +17,7 @@ namespace Unit04.Game.Casting
         private Color _color = new Color(255, 255, 255); // white
         private Point _position = new Point(0, 0);
         private Point _velocity = new Point(0, 0);
+        private string _artifactType = "";
 
         /// <summary>
         /// Constructs a new instance of Actor.
@@ -83,6 +84,18 @@ namespace Unit04.Game.Casting
             int y = ((_position.GetY() + _velocity.GetY()) + maxY) % maxY;
             _position = new Point(x, y);
         }
+
+
+/// <summary>
+        /// Moves the actor to its next position according to its velocity. 
+        /// </summary>
+        public void MoveNextNoWrap()
+        {
+            int x = ((_position.GetX() + _velocity.GetX()));
+            int y = ((_position.GetY() + _velocity.GetY()));
+            _position = new Point(x, y);
+        }
+
 
         /// <summary>
         /// Sets the actor's color to the given value.
@@ -154,6 +167,16 @@ namespace Unit04.Game.Casting
                 throw new ArgumentException("velocity can't be null");
             }
             this._velocity = velocity;
+        }
+
+        public string GetArtifactType()
+        {
+            return _artifactType;
+        }
+
+        public void SetArtifactType(string _inputArtifactType)
+        {
+            _artifactType = _inputArtifactType;
         }
 
     }

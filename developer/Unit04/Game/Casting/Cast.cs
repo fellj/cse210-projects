@@ -13,7 +13,7 @@ namespace Unit04.Game.Casting
     public class Cast
     {
         private Dictionary<string, List<Actor>> _actors = new Dictionary<string, List<Actor>>();
-
+        
         /// <summary>
         /// Constructs a new instance of Cast.
         /// </summary>
@@ -98,6 +98,7 @@ namespace Unit04.Game.Casting
                 _actors[group].Remove(actor);
             }
         }
+
 
     }
 }
