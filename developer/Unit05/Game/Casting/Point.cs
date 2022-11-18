@@ -85,5 +85,17 @@ namespace Unit05.Game.Casting
             int y = this._y * factor;
             return new Point(x, y);
         }
+
+        /// <summary>
+        /// Adds an offset to the x value of the existing point.
+        /// </summary>
+        /// <param name="offset">The offset factor.</param>
+
+        public void AddXOffset(int offset)
+        {
+
+            this._x += offset;
+
+        }
     }
 }

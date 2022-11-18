@@ -17,6 +17,8 @@ namespace Unit05.Game.Scripting
     public class HandleCollisionsAction : Action
     {
         private bool _isGameOver = false;
+        private string _winner;
+
 
         /// <summary>
         /// Constructs a new instance of HandleCollisionsAction.
@@ -31,80 +33,107 @@ namespace Unit05.Game.Scripting
             if (_isGameOver == false)
             {
                 HandleCycleCollisions(cast);
-                HandleSegmentCollisions(cast);
                 HandleGameOver(cast);
             }
         }
 
         /// <summary>
-        /// Updates the score nd moves the food if the snake collides with it.
+        /// Ends the game if the cycles collide.
         /// </summary>
         /// <param name="cast">The cast of actors.</param>
         private void HandleCycleCollisions(Cast cast)
         {
-            Cycle player1 = (Cycle)cast.GetFirstActor("player1");
-            Cycle player2 = (Cycle)cast.GetFirstActor("player2");
-            Score score = (Score)cast.GetFirstActor("score");
-            //Food food = (Food)cast.GetFirstActor("food");
-            
-            if (player1.GetCycle().GetPosition().Equals(player2.GetCycle().GetPosition()))
-            {
-                int points = food.GetPoints();
-                snake.GrowTail(points);
-                score.AddPoints(points);
-                food.Reset();
-            }
+            Player player1    = (Player)cast.GetFirstActor("player1");
+            Player player2    = (Player)cast.GetFirstActor("player2");
+            Actor cycle1      = player1.GetCycle();
+            Actor cycle2      = player2.GetCycle();
+            List<Actor> tail1 = player1.GetTail();
+            List<Actor> tail2 = player2.GetTail();
+
+            _winner = IdentifyTailCollision("player 2", cycle2, tail1);
+            _winner = IdentifyTailCollision("player 1", cycle1, tail2);
+
         }
 
         /// <summary>
-        /// Sets the game over flag if the snake collides with one of its segments.
+        /// Identifies if the cycle has collided with the opponents tail.
+        /// If so, the game is over
+        /// <param name="player"> String representing the player. </param>
+        /// <param name="cycle"> Cycle object representing the cycle. </param>
+        /// <param name="tail"> List<Actor> object representing the opponent's tail. </param>
         /// </summary>
-        /// <param name="cast">The cast of actors.</param>
-        private void HandleSegmentCollisions(Cast cast)
+        private string IdentifyTailCollision(string player, Actor cycle, List<Actor> tail)
         {
-            Cycle player1 = (Cycle)cast.GetFirstActor("player1");
-            Cycle player2 = (Cycle)cast.GetFirstActor("player2");
-            Actor cycle1 = player1.GetCycle();
-            Actor cycle2 = player2.GetCycle();
-            List<Actor> cycle1Tail = cycle1.GetTail();
-
-            foreach (Actor segment in body)
+            foreach (Actor segment in tail)
             {
-                if (segment.GetPosition().Equals(head.GetPosition()))
+                if (segment.GetPosition().Equals(cycle.GetPosition()))
                 {
                     _isGameOver = true;
+                    _winner = player.Contains("1") == true ? "Player 2" : "Player 1"; 
                 }
             }
+
+            return _winner;
         }
 
+
+        /// <summary>
+        /// If the game is over, it communicates
+        /// with messages to the players and 
+        /// makes everything white
+        /// <param name="cast"> The cast object. </param>
+        /// </summary>
         private void HandleGameOver(Cast cast)
         {
             if (_isGameOver == true)
             {
-                Cycle player1 = (Cycle)cast.GetFirstActor("player1");
-                Cycle player2 = (Cycle)cast.GetFirstActor("player2");
-                List<Actor> player1Tail = player1.GetTail();
-                List<Actor> player2Tail = player2.GetTail();
-                //Food food = (Food)cast.GetFirstActor("food");
 
                 // create a "game over" message
-                int x = Constants.MAX_X / 2;
-                int y = Constants.MAX_Y / 2;
-                Point position = new Point(x, y);
+                int x = Constants.MAX_X / 2 - 50;
+                int y = Constants.MAX_Y / 2 - 50;
+                Point messagePosition = new Point(x, y);
+                Point winnerPosition = new Point(x, y + 25);
 
                 Actor message = new Actor();
+                Actor winner = new Actor ();
                 message.SetText("Game Over!");
-                message.SetPosition(position);
+                message.SetPosition(messagePosition);
+                winner.SetText("The winner is: " + GetWinner());
+                winner.SetPosition(winnerPosition);
                 cast.AddActor("messages", message);
+                cast.AddActor("messages", winner);
 
-                // make everything white
-                foreach (Actor segment in player1Tail)
-                {
-                    segment.SetColor(Constants.WHITE);
-                }
-                //food.SetColor(Constants.WHITE);
+                // Make everything white
+                MakeEverythingWhite(cast);
+
             }
         }
 
+        /// <summary>
+        /// Sets the color of the actors white
+        /// </summary>
+        /// <param name="cast"> The cast of actors. </param>
+        private void MakeEverythingWhite(Cast cast)
+        {
+            Player player1 = (Player)cast.GetFirstActor("player1");
+            Player player2 = (Player)cast.GetFirstActor("player2");
+            
+            player1.PlayerGameOver();
+            player2.PlayerGameOver();
+
+            player1.SetPlayerColorWhite();
+            player2.SetPlayerColorWhite();
+
+        }
+
+        private string GetWinner()
+        {
+            return _winner;
+        }        
+
+
+
     }
+
+   
 }

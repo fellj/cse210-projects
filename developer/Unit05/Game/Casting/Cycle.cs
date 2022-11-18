@@ -18,6 +18,7 @@ namespace Unit05.Game.Casting
         public Cycle()
         {
             PrepareTail();
+            //this.SetVelocity(new Point(0, 1 * Constants.CELL_SIZE));
         }
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace Unit05.Game.Casting
         /// Gets the snake's head segment.
         /// </summary>
         /// <returns>The head segment as an instance of Actor.</returns>
-        public Actor GetCycle()
+        public virtual Actor GetCycle()
         {
             return _segments[0];
         }
@@ -48,10 +49,10 @@ namespace Unit05.Game.Casting
         }
 
         /// <summary>
-        /// Grows the snake's tail by the given number of segments.
+        /// Grows the cycle's trail by the given number of segments.
         /// </summary>
         /// <param name="numberOfSegments">The number of segments to grow.</param>
-        public void GrowTail(int numberOfSegments)
+        public virtual void GrowTail(int numberOfSegments)
         {
             for (int i = 0; i < numberOfSegments; i++)
             {
@@ -64,18 +65,23 @@ namespace Unit05.Game.Casting
                 segment.SetPosition(position);
                 segment.SetVelocity(velocity);
                 segment.SetText("#");
-                segment.SetColor(Constants.GREEN);
+                //segment.SetColor(this.GetColor());
                 _segments.Add(segment);
             }
         }
-
+/* 
         /// <inheritdoc/>
         public override void MoveNext()
         {
+
+            GrowTail(1);
+
             foreach (Actor segment in _segments)
             {
                 segment.MoveNext();
             }
+
+            
 
             for (int i = _segments.Count - 1; i > 0; i--)
             {
@@ -84,10 +90,14 @@ namespace Unit05.Game.Casting
                 Point velocity = previous.GetVelocity();
                 trailing.SetVelocity(velocity);
             }
-        }
+
+
+
+
+        } */
 
         /// <summary>
-        /// Turns the head of the snake in the given direction.
+        /// Turns the head of the cycle in the given direction.
         /// </summary>
         /// <param name="velocity">The given direction.</param>
         public void TurnCycle(Point direction)
@@ -98,25 +108,25 @@ namespace Unit05.Game.Casting
         /// <summary>
         /// Prepares the cycle for moving.
         /// </summary>
-        private void PrepareTail()
+        public void PrepareTail()
         {
             int x = Constants.MAX_X / 2;
-            int y = Constants.MAX_Y / 2;
+            int y = Constants.MAX_Y - (Constants.MAX_Y / 3);
 
             for (int i = 0; i < Constants.CYCLE_LENGTH; i++)
             {
                 Point position = new Point(x - i * Constants.CELL_SIZE, y);
-                Point velocity = new Point(1 * Constants.CELL_SIZE, 0);
-                string text = i == 0 ? "8" : "#";
-                Color color = i == 0 ? Constants.YELLOW : Constants.GREEN;
+                Point velocity = new Point(1 * Constants.CELL_SIZE, 0);        // going up rather than right
+                string text = i == 0 ? "@" : "#";
+                
 
                 Actor segment = new Actor();
                 segment.SetPosition(position);
                 segment.SetVelocity(velocity);
                 segment.SetText(text);
-                segment.SetColor(color);
                 _segments.Add(segment);
             }
         }
+
     }
 }

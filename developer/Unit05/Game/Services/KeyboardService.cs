@@ -16,6 +16,8 @@ namespace Unit05.Game.Services
         private Dictionary<string, KeyboardKey> _keys
                 = new Dictionary<string, KeyboardKey>();
 
+        private int _totalKeystrokes = 0;
+
         /// <summary>
         /// Constructs a new instance of KeyboardService using the given cell size.
         /// </summary>
@@ -51,6 +53,22 @@ namespace Unit05.Game.Services
         {
             KeyboardKey raylibKey = _keys[key.ToLower()];
             return Raylib.IsKeyUp(raylibKey);
+        }
+
+        /// <summary>
+        /// Returns the total number of keystrokes.
+        /// </summary>
+        public int GetTotalKeystrokes()
+        {
+            return _totalKeystrokes;
+        }
+
+        /// <summary>
+        /// Increments the total number of keystrokes by one.
+        /// </summary>
+        public void IncrementTotalKeystrokes()
+        {
+            _totalKeystrokes++;
         }
 
     }

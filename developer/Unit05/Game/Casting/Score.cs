@@ -12,13 +12,19 @@ namespace Unit05.Game.Casting
     public class Score : Actor
     {
         private int _points = 0;
+        private int _playerOffset = 0;
+        private string _prefix = "";
+
 
         /// <summary>
-        /// Constructs a new instance of an Food.
+        /// Constructs a new instance of a Score.
         /// </summary>
-        public Score()
+        public Score(int playerOffset, string prefix)
         {
+            _prefix = prefix;
             AddPoints(0);
+            _playerOffset = playerOffset;
+            SetLocation();
         }
 
         /// <summary>
@@ -28,7 +34,19 @@ namespace Unit05.Game.Casting
         public void AddPoints(int points)
         {
             this._points += points;
-            SetText($"Score: {this._points}");
+            SetText($"{this._prefix} Score: {this._points}");
+        }
+
+        /// <summary>
+        /// Sets the location of the score text.
+        /// </summary>
+        /// <param name="offset">An integer value representing the x offset of the current location.
+        public void SetLocation()
+        {
+
+            this.GetPosition().AddXOffset(_playerOffset);
+
+
         }
     }
 }
