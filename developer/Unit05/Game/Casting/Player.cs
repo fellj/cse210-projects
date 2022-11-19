@@ -14,6 +14,8 @@ namespace Unit05.Game.Casting
 
         private Point _initialDirection = new Point(0, -Constants.CELL_SIZE);
 
+        private bool _whiteTail = false;
+
         public Player(int playerXOffset)
         {
             // Set player color
@@ -68,7 +70,7 @@ namespace Unit05.Game.Casting
         public override void GrowTail(int numTailSegments)
         {
             List<Actor> segments = this.GetSegments();
-            //Color tailColor = PlayerGameOver() == false ? _playerColor : Constants.WHITE;
+            Color tailColor = _whiteTail == false ? _playerColor : Constants.WHITE;
 
 
             for (int i = 0; i < numTailSegments; i++)
@@ -82,15 +84,7 @@ namespace Unit05.Game.Casting
                 segment.SetPosition(position);
                 segment.SetVelocity(velocity);
                 segment.SetText("#");
-                if (PlayerGameOver())
-                {
-                    segment.SetColor(Constants.WHITE);
-
-                } else {
-
-                    segment.SetColor(_playerColor);
-                }
-                
+                segment.SetColor(tailColor);
                 segments.Add(segment);
             }
 
@@ -127,6 +121,8 @@ namespace Unit05.Game.Casting
             Actor cycle = this.GetCycle();
 
             cycle.SetColor(Constants.WHITE);
+
+            _whiteTail = true;
 
             for (int i = 0; i < segments.Count; i++)
             {

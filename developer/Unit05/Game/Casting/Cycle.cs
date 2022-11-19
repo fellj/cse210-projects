@@ -65,36 +65,10 @@ namespace Unit05.Game.Casting
                 segment.SetPosition(position);
                 segment.SetVelocity(velocity);
                 segment.SetText("#");
-                //segment.SetColor(this.GetColor());
+                segment.SetColor(this.GetColor());
                 _segments.Add(segment);
             }
         }
-/* 
-        /// <inheritdoc/>
-        public override void MoveNext()
-        {
-
-            GrowTail(1);
-
-            foreach (Actor segment in _segments)
-            {
-                segment.MoveNext();
-            }
-
-            
-
-            for (int i = _segments.Count - 1; i > 0; i--)
-            {
-                Actor trailing = _segments[i];
-                Actor previous = _segments[i - 1];
-                Point velocity = previous.GetVelocity();
-                trailing.SetVelocity(velocity);
-            }
-
-
-
-
-        } */
 
         /// <summary>
         /// Turns the head of the cycle in the given direction.
